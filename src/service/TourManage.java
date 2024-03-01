@@ -19,13 +19,15 @@ import utility.Input;
  */
 public class TourManage {
     private Input input;
-    private List<TourPackage> tour;
+    private List<TourPackage> tourCatalog;
+    private TourPackage tour;
     private DataValid dv;
 
     public TourManage() {
         input = new Input();
-        tour = new ArrayList<>();
+        tourCatalog = new ArrayList<>();
         dv = new DataValid();
+        tour = new TourPackage();
 
     }
 
@@ -37,29 +39,36 @@ public class TourManage {
         String tourDescription = "";
         int tourPrice = 0;
         boolean check = true;
-        while (check) {
-            addTourToSystem(tourID, tourName, tourDestination, tourDuration, tourDescription, tourPrice);
-            tour.add(new TourPackage(tourID, tourName, tourDestination, tourDuration, tourDescription, tourPrice));
+        do {
+            tourID = dv.inputTourId(Message.INPUT_TOUR_ID.getPattern());
+            if (this.checkTourByID(tourID) != null) {
+                System.out.println("This ID is existed!");
+                return;
+            } else {
+                tourName = dv.inputTourName(Message.INPUT_TOUR_NAME.getPattern());
+                tourDestination = dv.inputTourDestination(Message.INPUT_TOUR_DESTINATION.getPattern());
+                tourDuration = dv.inputTourDuration(Message.INPUT_TOUR_DURATION.getPattern());
+                tourDescription = dv.inputTourDescription(Message.INPUT_TOUR_DESCRIPTION.getPattern());
+                tourPrice = dv.inputTourPrice(Message.INPUT_TOUR_PRICE.getPattern());
+            }
+            tourCatalog
+                    .add(new TourPackage(tourID, tourName, tourDestination, tourDuration, tourDescription, tourPrice));
             System.out.println("Create Tour success");
             check = input.inputYorN(Message.WANT_TO_CONTINUE.getPattern());
-        }
+        } while (check);
 
     }
 
-    public void addTourToSystem(String id, String name, String destination, int duration, String description,
-            int price) {
-        // add a tour package to list of tours
-        id = dv.inputTourId(Message.INPUT_TOUR_ID.getPattern());
-        if (dv.isExistedTour(tour, id)) {
-            System.out.println("This ID is existed!");
-            return;
-        } else {
-            name = dv.inputTourName(Message.INPUT_TOUR_NAME.getPattern());
-            destination = dv.inputTourDestination(Message.INPUT_TOUR_DESTINATION.getPattern());
-            duration = dv.inputTourDuration(Message.INPUT_TOUR_DURATION.getPattern());
-            description = dv.inputTourDescription(Message.INPUT_TOUR_DESCRIPTION.getPattern());
-            price = dv.inputTourPrice(Message.INPUT_TOUR_PRICE.getPattern());
+    public TourPackage checkTourByID(String id) {
+        for (TourPackage arr : tourCatalog) {
+            if (id.equalsIgnoreCase(arr.getTourID())) {
+                return arr;
+            }
         }
+        return null;
     }
 
+    public void showTour() {
+        tour.toString();
+    }
 }

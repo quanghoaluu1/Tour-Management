@@ -19,7 +19,11 @@ public class TourPackage {
     private String tourDescription;
     private int tourPrice;
 
-    public TourPackage(String tourID, String tourName, String tourDestination, int tourDuration, String tourDescription, int tourPrice) {
+    public TourPackage() {
+    }
+
+    public TourPackage(String tourID, String tourName, String tourDestination, int tourDuration, String tourDescription,
+            int tourPrice) {
         this.tourID = tourID;
         this.tourName = tourName;
         this.tourDestination = tourDestination;
@@ -75,10 +79,11 @@ public class TourPackage {
     public void setPrice(int price) {
         this.tourPrice = price;
     }
-    
+
     @Override
-   public String toString(){
-       return String.format(Regex.TOUR_FORMAT.getPattern(), tourID, tourName, tourDestination, tourDuration, tourDescription, tourPrice);
-   }
-    
+    public String toString() {
+        return String.format(Regex.TOUR_FORMAT.getPattern(), tourID, tourName, tourDestination, tourDuration,
+                tourDescription, tourPrice);
+    }
+
 }

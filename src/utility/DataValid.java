@@ -1,6 +1,5 @@
 package utility;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import constant.Message;
@@ -30,7 +29,7 @@ public class DataValid {
 
     public boolean isExistedTour(List<TourPackage> tour, String id) {
         for (TourPackage arr : tour) {
-            if (arr.getTourID().equalsIgnoreCase(id))
+            if (id.equalsIgnoreCase(arr.getTourID()))
                 return true;
         }
         return false;
@@ -43,7 +42,7 @@ public class DataValid {
      */
     public String inputTourName(String msg) {
         regex = Regex.TOUR_NAME.getPattern();
-        msg = Message.INPUT_TOUR_NAME.getPattern();
+
         String str;
         str = input.inputStringRegex(msg, regex).toUpperCase();
         return str;
@@ -55,7 +54,7 @@ public class DataValid {
      * @return Destination of the tour
      */
     public String inputTourDestination(String msg) {
-        msg = Message.INPUT_TOUR_DESTINATION.getPattern();
+
         String str;
         str = input.inputStringNotBlank(msg);
         return str;
@@ -67,7 +66,7 @@ public class DataValid {
      * @return duration of the tour
      */
     public int inputTourDuration(String msg) {
-        msg = Message.INPUT_TOUR_DURATION.getPattern();
+
         int duration = input.inputInt(msg, 0);
         return duration;
     }
@@ -78,7 +77,7 @@ public class DataValid {
      * @return Description of the tour
      */
     public String inputTourDescription(String msg) {
-        msg = Message.INPUT_TOUR_DESCRIPTION.getPattern();
+
         String str = input.inputStringNotBlank(msg);
         return str;
     }
@@ -89,7 +88,7 @@ public class DataValid {
      * @return Price of the tour
      */
     public int inputTourPrice(String msg) {
-        msg = Message.INPUT_TOUR_PRICE.getPattern();
+
         int price = input.inputInt(msg, 0);
         return price;
     }

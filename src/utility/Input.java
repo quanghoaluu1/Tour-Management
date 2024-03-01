@@ -1,5 +1,6 @@
 package utility;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import constant.Message;
@@ -17,22 +18,23 @@ public class Input {
      * @throws IllegalArgumentException if no valid input is provided or EOF is
      *                                  reached before valid input
      */
-    public String inputStringRegex(String msg, String regex) throws IllegalArgumentException {
-        if (msg == null || regex == null)
-            throw new IllegalArgumentException("Message or Regex cannot be Null");
+    public String inputStringRegex(String msg, String regex) {
+
         System.out.println(msg);
-        boolean check = true;
+        boolean check = false;
         String strInput;
         do {
-            strInput = sc.nextLine();
+            strInput = sc.next();
             if (!isValidRegex(strInput, regex)) {
                 System.out.println(errInvalid);
             } else if (isEmpty(strInput)) {
                 System.out.println(errNull);
             } else {
-                check = false;
+                check = true;
             }
-        } while (check);
+
+        } while (!check);
+
         return strInput;
     }
 
@@ -55,8 +57,8 @@ public class Input {
      *                                  If Integer Value is Not Valid According To
      *                                  The Given Regex
      */
-    public String inputStringBlankRegex(String msg, String regex) throws IllegalArgumentException {
-        this.checkIllegalArgument(msg, regex);
+    public String inputStringBlankRegex(String msg, String regex) {
+
         System.out.println(msg);
         boolean check = true;
         String strInput;
@@ -95,33 +97,23 @@ public class Input {
     public int inputInt(String msg, int min) {
         int input = 0;
         boolean check = true;
-        try {
-            do {
+
+        do {
+            try {
                 System.out.println(msg);
                 input = sc.nextInt();
                 if (isValidInt(input, min)) {
                     check = false;
                 }
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.err.println(e.getMessage());
+                sc.next();
 
-            } while (check);
-
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return input;
-    }
-
-    /**
-     * check if objects is null
-     * 
-     * @param objects array of Objects that need to be printed in the console
-     */
-    public void checkIllegalArgument(Object... objects) {
-        for (Object obj : objects) {
-            if (obj == null) {
-                throw new IllegalArgumentException("Argument cannot be null");
             }
-        }
+
+        } while (check);
+
+        return input;
     }
 
     /**
