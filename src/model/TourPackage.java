@@ -5,8 +5,6 @@
  */
 package model;
 
-import constant.Regex;
-
 /**
  *
  * @author quang
@@ -76,14 +74,22 @@ public class TourPackage {
         return tourPrice;
     }
 
-    public void setPrice(int price) {
+    public void setTourPrice(int price) {
         this.tourPrice = price;
     }
 
     @Override
     public String toString() {
-        return String.format(Regex.TOUR_FORMAT.getPattern(), tourID, tourName, tourDestination, tourDuration,
-                tourDescription, tourPrice);
+        String frame = "+-------------------------------------------------------+\n" +
+                "| ID: %-50s|\n" +
+                "| Name: %-48s|\n" +
+                "| Destination: %-41s|\n" +
+                "| Duration: %-44d|\n" +
+                "| Description: %-41s|\n" +
+                "| Price: $%-46d|\n" +
+                "+-------------------------------------------------------+";
+        return String.format(frame, this.tourID, this.tourName, this.tourDestination, this.tourDuration,
+                this.tourDescription, this.tourPrice);
     }
 
 }

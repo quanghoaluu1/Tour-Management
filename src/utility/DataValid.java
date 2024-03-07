@@ -23,7 +23,7 @@ public class DataValid {
         regex = Regex.TOUR_ID.getPattern();
         msg = Message.INPUT_TOUR_ID.getPattern();
         String str;
-        str = input.inputStringRegex(msg, regex).toUpperCase();
+        str = input.inputNotNull(msg, String.class, regex).toUpperCase();
         return str;
     }
 
@@ -44,7 +44,7 @@ public class DataValid {
         regex = Regex.TOUR_NAME.getPattern();
 
         String str;
-        str = input.inputStringRegex(msg, regex).toUpperCase();
+        str = input.inputNotNull(msg, String.class, regex).toUpperCase();
         return str;
     }
 
@@ -54,9 +54,9 @@ public class DataValid {
      * @return Destination of the tour
      */
     public String inputTourDestination(String msg) {
-
+        regex = Regex.TOUR_DESTINATION.getPattern();
         String str;
-        str = input.inputStringNotBlank(msg);
+        str = input.inputNotNull(msg, String.class, regex);
         return str;
     }
 
@@ -66,8 +66,8 @@ public class DataValid {
      * @return duration of the tour
      */
     public int inputTourDuration(String msg) {
-
-        int duration = input.inputInt(msg, 0);
+        regex = Regex.TOUR_NUMBER.getPattern();
+        int duration = input.inputNotNull(msg, Integer.class, regex);
         return duration;
     }
 
@@ -77,8 +77,8 @@ public class DataValid {
      * @return Description of the tour
      */
     public String inputTourDescription(String msg) {
-
-        String str = input.inputStringNotBlank(msg);
+        regex = Regex.TOUR_DESCRIPTION.getPattern();
+        String str = input.inputNotNull(msg, String.class, regex);
         return str;
     }
 
@@ -88,8 +88,8 @@ public class DataValid {
      * @return Price of the tour
      */
     public int inputTourPrice(String msg) {
-
-        int price = input.inputInt(msg, 0);
+        regex = Regex.TOUR_NUMBER.getPattern();
+        int price = input.inputNotNull(msg, Integer.class, regex);
         return price;
     }
 }
